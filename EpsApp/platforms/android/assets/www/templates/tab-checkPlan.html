@@ -1,49 +1,18 @@
-﻿<!--search bar-->
-<script id="checkPlan-search.html" type="text/ng-template">
-    <ion-popover-view style="width:80%;height:40%">
-        <ion-content>
-            <div class="list">
-                <label class="item item-radio">
-                    <input type="radio" name="group" value="0">
-                    <div class="item-content">
-                        全部
-                    </div>
-                    <i class="radio-icon ion-checkmark"></i>
-                </label>
-                <label class="item item-radio">
-                    <input type="radio" name="group" value="1">
-                    <div class="item-content">
-                        日常巡查
-                    </div>
-                    <i class="radio-icon ion-checkmark"></i>
-                </label>
-                <label class="item item-radio">
-                    <input type="radio" name="group" value="2">
-                    <div class="item-content">
-                        预警处理
-                    </div>
-                    <i class="radio-icon ion-checkmark"></i>
-                </label>
-            </div>
-            <div class="padding">
-                <button class="button  button-positive">搜索</button>
-                <button class="button  button-positive" ng-click="closePopover()">取消</button>
-            </div>
-        </ion-content>
-    </ion-popover-view>
-</script>
-<!--data list-->
-<ion-header-bar align-title="left" class="bar-subheader">
-    <div class="bar bar-header item-input-inset">
-        <label class="item-input-wrapper">
-            <i class="icon  ion-ios-search-strong placeholder-icon"></i>
-            <input type="search" placeholder="搜索" ng-click="openPopover($event)">
-        </label>
-    </div>
-</ion-header-bar>
+﻿
 <ion-view view-title="查询计划">
+    <ion-header-bar align-title="left" class="bar-subheader">
+        
+    </ion-header-bar>
     <ion-content class="padding">
 
     </ion-content>
+    <ion-footer-bar align-title="left">
+        <div class="bar bar-header item-input-inset">
+            <label class="item-input-wrapper">
+                <i class="icon  ion-ios-search-strong placeholder-icon"></i>
+                <input type="search" placeholder="搜索" ng-click="ShowSearch()">
+            </label>
+        </div>
+    </ion-footer-bar>
 </ion-view>
 

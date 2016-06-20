@@ -51,16 +51,25 @@
         scope: $scope
     });
 
-    // .fromTemplateUrl() 方法
+    //  search define
     $ionicModal.fromTemplateUrl('checkPlanSearch.html', {
         scope: $scope,
         animation: 'slide-in-down',
         hardwareBackButtonClose: false
     }).then(function (modal) {
         $scope.Modal = modal;
-        $scope.Modal.show().then(function () {
-        });
     });
+    $scope.$on('modal.removed', function () {
+        //exe search
+    });
+    // /search define
+
+    $scope.ShowSearch() = function () {
+        $scope.Modal.show();
+    }
+    $scope.HideSearch() = function () {
+        $scope.Modal.hide();
+    }
 })
 
 .controller('ChatsCtrl', function ($scope, $ionicModal) {
