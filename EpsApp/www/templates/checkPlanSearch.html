@@ -1,0 +1,32 @@
+﻿<ion-view view-title="查询计划">
+    <ion-content class="padding">
+        <div class="list">
+            <label class="item item-radio">
+                <input type="radio" name="group" value="0">
+                <div class="item-content">
+                    全部
+                </div>
+                <i class="radio-icon ion-checkmark"></i>
+            </label>
+            <label class="item item-radio">
+                <input type="radio" name="group" value="1">
+                <div class="item-content">
+                    日常巡查
+                </div>
+                <i class="radio-icon ion-checkmark"></i>
+            </label>
+            <label class="item item-radio">
+                <input type="radio" name="group" value="2">
+                <div class="item-content">
+                    预警处理
+                </div>
+                <i class="radio-icon ion-checkmark"></i>
+            </label>
+        </div>
+        <div class="padding">
+            <button class="button  button-positive">搜索</button>
+            <button class="button  button-positive" ng-click="closePopover()">取消</button>
+        </div>
+    </ion-content>
+</ion-view>
+

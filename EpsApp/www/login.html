@@ -1,0 +1,158 @@
+﻿<ion-modal-view view-title="EPS登录">
+    <ion-content class="login"  ng-controller="AccountCtrl">
+        <div class="headtop"></div>
+        <div class="head">
+            <!--hide-on-keyboard-open-->
+            <img src="img/logo.png" /><!--必须png-->
+            <div class="title">养殖巡查员登陆</div>
+        </div>
+        <div class="list card list-inset">
+            <div class="item item-input  item-input-wrapper light-bg" style="position: relative; z-index: 999;">
+                <i class="icon ion-android-person positive"></i>
+                <input type="text" name="user" ng-model="userName" placeholder="账号">
+            </div>
+            <div class="item item-input item-input-wrapper light-bg">
+                <i class="icon ion-ios-unlocked positive"></i>
+                <input type="password" ng-model="password"  placeholder="密码" />
+            </div>
+            <div class="item item-checkbox item-input-wrapper light-bg">
+                记住密码
+                <label class="checkbox checkbox-positive">
+                    <input type="checkbox" ng-model="rememberAccount">
+                </label>
+            </div>
+        </div>
+        <div class="item-input-inset bt-login">
+            <button class="button button-block button-positive" ng-click="Login()">
+                登 录
+            </button>
+        </div>
+        <div class="foot-ber">
+            养殖巡查APP © 2016-2025 ***公司
+        </div>
+    </ion-content>
+</ion-modal-view>
+<style type="text/css">
+    .scroll {
+        height: 100%;
+    }
+
+    .login {
+        color: #fff;
+        background: url(img/login_bg_03.jpg) center center;
+        background-size: auto 100%;
+        /*background-image: -webkit-gradient(linear, left top, left bottom, from(#87ace6), to(#cfe0fd));
+        background-image: linear-gradient(#87ace6, #cfe0fd);*/
+    }
+
+        .login .headtop {
+            height: 8%;
+        }
+
+        .login .head {
+            width: 100%;
+            text-align: center;
+            padding-bottom: 20px;
+            padding-top: 5%;
+        }
+
+            .login .head img {
+                width: 100px;
+                max-width: 100px;
+                height: auto;
+            }
+
+            .login .head .title {
+                font-size: 1.5em;
+                letter-spacing: 0.1em;
+                line-height: 1em;
+                font-weight: bold;
+                padding-top: 10px;
+                text-shadow: 0 2px 7px #192532;
+            }
+
+        .login .list-inset {
+            margin: 20px auto;
+            width: 80%;
+            overflow: visible;
+        }
+
+        .login .item {
+            overflow: visible;
+        }
+
+        .login .padding-left {
+            padding-left: 50px;
+        }
+
+        .login .bt-login {
+            width: 80%;
+            margin: 10px auto;
+        }
+
+            .login .bt-login .button {
+                font-weight: bold;
+            }
+
+        .login .foot-ber {
+            position: absolute;
+            bottom: 15px;
+            left: 0;
+            text-align: center;
+            font-size: 0.5em;
+            line-height: 1em;
+            width: 100%;
+        }
+
+        .login .select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 28px;
+            padding: 10px 18px 10px 0px;
+            max-width: 65%;
+            border: none;
+            background: #fff;
+            color: #333;
+            text-indent: 0.01px;
+            text-overflow: '';
+            white-space: nowrap;
+            font-size: 14px;
+            cursor: pointer;
+            direction: rtl;
+        }
+
+        .login .lic-select::after {
+            position: absolute;
+            top: 50%;
+            left: 52px;
+            margin-top: -3px;
+            width: 0;
+            height: 0;
+            border-top: 5px solid;
+            border-right: 5px solid rgba(0, 0, 0, 0);
+            border-left: 5px solid rgba(0, 0, 0, 0);
+            color: #999;
+            content: "";
+            pointer-events: none;
+        }
+
+        .login .namecache {
+            position: absolute;
+            left: 60px;
+            top: 25px;
+            width: 70%;
+        }
+
+            .login .namecache .item {
+                padding: 6px;
+            }
+
+            .login .namecache .namecache_del {
+                font-size: 1em;
+                color: #787878;
+            }
+</style>

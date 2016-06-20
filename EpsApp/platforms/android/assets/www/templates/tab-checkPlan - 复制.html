@@ -1,0 +1,35 @@
+﻿<script id="checkPlan-search.html" type="text/ng-template">
+    <ion-popover-view style="width:80%;height:40%">
+        <ion-content>
+            <div class="list">
+                <label class="item item-input">
+                    <input type="text" placeholder="First Name">
+                </label>
+                <label class="item item-input">
+                    <input type="text" placeholder="Last Name">
+                </label>
+                <label class="item item-input">
+                    <textarea placeholder="Comments"></textarea>
+                </label>
+            </div>
+            <div class="padding">
+                <button class="button  button-positive">搜索</button>
+                <button class="button  button-positive" ng-click="closePopover()">取消</button>
+            </div>
+        </ion-content>
+    </ion-popover-view>
+</script>
+<ion-header-bar align-title="left" class="bar-subheader">
+    <div class="bar bar-header item-input-inset">
+        <label class="item-input-wrapper">
+            <i class="icon  ion-ios-search-strong placeholder-icon"></i>
+            <input type="search" placeholder="搜索" ng-click="openPopover($event)">
+        </label>
+    </div>
+</ion-header-bar>
+<ion-view view-title="查询计划">
+    <ion-content class="padding">
+
+    </ion-content>
+</ion-view>
+
