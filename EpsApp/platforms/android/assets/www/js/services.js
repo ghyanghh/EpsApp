@@ -15,7 +15,7 @@ angular.module('starter.services', [])
                 success: function (res) {
                     SvrResponse.result = res.result;
                     SvrResponse.errmsg = res.errmsg;
-                    SvrResponse.response = res.response;
+                    SvrResponse.response = res.response; 
                 },
                 error: function (res) {
                     SvrResponse.result = "-10000000";

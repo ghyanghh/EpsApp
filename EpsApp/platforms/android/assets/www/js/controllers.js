@@ -1,4 +1,4 @@
-﻿angular.module('starter.controllers', [])
+﻿angular.module('starter.controllers', ['ionic', 'ionic-datepicker'])
 
 .controller('ContentController', function ($rootScope, $scope, $ionicModal, $ionicPopup, EPSConfig, AccountSvr) {
     //check
@@ -10,8 +10,7 @@
             animation: 'slide-in-down',
             hardwareBackButtonClose: false
         }).then(function (modal) {
-            $scope.loginModal = modal;
-            $scope.loginModal.show().then(function () {
+            modal.show().then(function () {
             });
         });
     }
@@ -47,36 +46,58 @@
 })
 
 .controller('CheckPlanCtrl', function ($scope, $ionicModal, $ionicPopover) {
-    $scope.popover = $ionicPopover.fromTemplateUrl('checkPlan-search.html', {
-        scope: $scope
-    });
+    $scope.InspectTypeData = [
+        { text: "全部", value: "0" },
+        { text: "日常巡查", value: "1" },
+        { text: "预警处理", value: "2" }
+    ];
+    $scope.Status = [
+        { text: "全部", value: "0" },
+        { text: "未处理", value: "1" },
+        { text: "处理中", value: "2" },
+        { text: "已处理", value: "3" },
+    ];
+    $scope.SelectedInspectTypeValue = '0';
+    $scope.SelectedStatusValue = '0';
 
-    // .fromTemplateUrl() 方法
-    $ionicPopover.fromTemplateUrl('checkPlan-search.html', {
-        scope: $scope
-    }).then(function (popover) {
-        $scope.popover = popover;
-    });
-
-
-    $scope.openPopover = function ($event) {
-        $scope.popover.show($event);
+    $scope.serverSideChange = function (item) {
+        console.log("Selected Serverside, text:", item.text, "value:", item.value);
     };
-    $scope.closePopover = function () {
-        $scope.popover.hide();
+
+    $ionicModal.fromTemplateUrl('/templates/checkPlanSearch.html', {
+        scope: $scope,
+        animation: 'slide-in-down',
+        hardwareBackButtonClose: false
+    }).then(function (modal) {
+        $scope.searchModal = modal;
+    });
+
+    //$scope.$on('modal.removed', function () {
+    //    //exe search
+    //});
+    // /search define
+
+    $scope.ShowSearch = function () {
+        $scope.searchModal.show();
+    }
+    $scope.HideSearch = function () {
+        $scope.searchModal.hide();
+    }
+
+    //datePicker
+    $scope.StartDate = new Date();
+    $scope.EndDate = new Date();
+    $scope.StartDateCallback = function (val) {
+        if (val) {
+            $scope.StartDate = val;
+        }
     };
-    // 清除浮动框
-    $scope.$on('$destroy', function () {
-        $scope.popover.remove();
-    });
-    // 在隐藏浮动框后执行
-    $scope.$on('popover.hidden', function () {
-        // 执行代码
-    });
-    // 移除浮动框后执行
-    $scope.$on('popover.removed', function () {
-        // 执行代码
-    });
+    $scope.EndDateCallback = function (val) {
+        if (val) {
+            $scope.EndDate = val;
+        }
+    };
+    // /datePicker
 })
 
 .controller('ChatsCtrl', function ($scope, $ionicModal) {
