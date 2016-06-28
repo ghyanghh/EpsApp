@@ -3,30 +3,25 @@ Create tabs with an icon and label, using the tabs-positive style.
 Each tab's child <ion-nav-view> directive will have its own
 navigation history that also transitions its views in and out.
 -->
-<ion-tabs class="tabs-icon-top tabs-color-active-positive"> 
 
-  <ion-tab title="巡查计划" icon-off="ion-ios-pulse" icon-on="ion-ios-pulse-strong" href="#/tab/checkPlan">
-    <ion-nav-view name="tab-checkPlan"></ion-nav-view>
-  </ion-tab>
+<ion-tabs class="tabs-icon-top  tabs-color-active-positive" >
 
-  <ion-tab title="农户运维" icon-off="ion-ios-people-outline" icon-on="ion-ios-people" href="#/tab/chats">
-    <ion-nav-view name="tab-chats"></ion-nav-view>
-  </ion-tab>
-
-  <ion-tab title="管辖列表" icon-off="ion-ios-list-outline" icon-on="ion-ios-list" href="#/tab/account">
-    <ion-nav-view name="tab-account"></ion-nav-view>
-  </ion-tab>
-
-    <ion-tab title="设备数据" icon-off="ion-ios-information-outline" icon-on="ion-ios-information" href="#/tab/account">
-        <ion-nav-view name="tab-account"></ion-nav-view>
-    </ion-tab>
-
-    <ion-tab title="上传报告" icon-off="ion-ios-upload-outline" icon-on="ion-ios-upload" href="#/tab/account">
-        <ion-nav-view name="tab-account"></ion-nav-view>
-    </ion-tab>
-
-    <ion-tab title="查询报告" icon-off="ion-document" icon-on="ion-document-text" href="#/tab/account">
-        <ion-nav-view name="tab-account"></ion-nav-view>
-    </ion-tab>
-
+        <ion-tab title="基本信息" icon-off="ion-ios-person-outline" icon-on="ion-ios-person" href="#/tab/farmerInfo">
+            <ion-nav-view name="tab-farmerInfo"></ion-nav-view>
+        </ion-tab>
+        <ion-tab title="签到" icon-off="ion-ios-location-outline" icon-on="ion-ios-location" href="#/tab/signIn">
+            <ion-nav-view name="tab-signIn"></ion-nav-view>
+        </ion-tab>
+        <ion-tab title="巡检报告" icon-off="ion-ios-list-outline" icon-on="ion-ios-list" href="#/tab/checkRpt">
+            <ion-nav-view name="tab-checkRpt"></ion-nav-view>
+        </ion-tab>
+        <ion-tab title="设备维修" icon-off="ion-ios-gear-outline" icon-on="ion-ios-gear" href="#/tab/eqRepair">
+            <ion-nav-view name="tab-eqRepair"></ion-nav-view>
+        </ion-tab>
+        <ion-tab title="预警" icon-off="ion-android-notifications-none" icon-on="ion-android-notifications" href="#/tab/alarm">
+            <ion-nav-view name="tab-alarm"></ion-nav-view>
+        </ion-tab>
+        <ion-tab title="实时数据" icon-off="ion-ios-pulse" icon-on="ion-ios-pulse-strong" href="#/tab/account">
+            <ion-nav-view name="tab-account"></ion-nav-view>
+        </ion-tab>
 </ion-tabs>

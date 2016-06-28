@@ -1,0 +1,25 @@
+﻿<ion-view view-title="报告单">
+    <ion-content>
+            <button class="button button-block button-positive">新增</button>
+            <ion-list can-swipe="true">
+                <ion-item ng-repeat="item in Data.EqRepair"
+                          item="item"
+                          href="#/tab/eqRepairDetail/{{item.Id}}" class="item-remove-animate" on-hold="showActionSheet({{ item.Id }})">
+                    <div class="item item-divider">
+                        <i class="ion-ios-clock">
+                        </i>{{ item.Date }}
+                    </div>
+                    <a class="item" href="">
+                        <i class="ion-ios-flag">
+                        </i>
+                        {{ item.Status}}<!--颜色-->
+                    </a>
+                    <a class="item" href="#">
+                        <i class="ion-man">
+                        </i>{{ item.Inspector }}
+                    </a>
+                </ion-item>
+            </ion-list>
+</ion-content>
+</ion-view>
+

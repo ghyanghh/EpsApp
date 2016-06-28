@@ -1,0 +1,35 @@
+﻿<ion-view view-title="报告单详细信息">
+    <ion-content>
+        <div class="list">
+            <div class="item item-divider">
+                巡查结果
+            </div>
+            <ion-item ng-repeat="item in Data.InspectRes"
+                      item="item"
+                      href="" class="item-remove-animate">
+                <ul class="list">
+                    <li class="item">
+                        结果:{{ item.InspectResult }}
+                    </li>
+                    <li class="item">
+                        备注:{{ item.Remark }}
+                    </li>
+                    <li class="item">
+                        <ion-slide-box>
+                            <ion-slide>
+                                <img src="{{ item.Pic1 }}">
+                            </ion-slide>
+                            <ion-slide>
+                                <img src="{{ item.Pic2 }}">
+                            </ion-slide>
+                            <ion-slide>
+                                <img src="{{ item.Pic3 }}">
+                            </ion-slide>
+                        </ion-slide-box>
+                    </li>
+                </ul>
+            </ion-item>
+        </div>
+    </ion-content>
+</ion-view>
+

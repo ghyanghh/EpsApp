@@ -1,0 +1,44 @@
+﻿<ion-view view-title="设备维修详细信息">
+    <ion-content>
+        <div class="list">
+            <div class="item item-divider">
+                设备结果
+            </div>
+            <ion-item ng-repeat="item in Data.Maintance"
+                      item="item"
+                      href="" class="item-remove-animate">
+                <ul class="list">
+                    <li class="item">
+                        类型:{{ item.DevicePartType }}
+                    </li>
+                    <li class="item">
+                        开始状态:{{ item.BeginStatus }}
+                    </li>
+                    <li class="item">
+                        最后状态:{{ item.FinalStatus }}
+                    </li>
+                    <li class="item">
+                        维修结果:{{ item.RepairStatus }}
+                    </li>
+                    <li class="item">
+                        原因:{{ item.Reason }}
+                    </li>
+                    <li class="item">
+                        <ion-slide-box>
+                            <ion-slide>
+                                <img src="{{ item.Pic1 }}">
+                            </ion-slide>
+                            <ion-slide>
+                                <img src="{{ item.Pic2 }}">
+                            </ion-slide>
+                            <ion-slide>
+                                <img src="{{ item.Pic3 }}">
+                            </ion-slide>
+                        </ion-slide-box>
+                    </li>
+                </ul>
+            </ion-item>
+        </div>
+    </ion-content>
+</ion-view>
+

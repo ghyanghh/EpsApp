@@ -1,0 +1,41 @@
+﻿<ion-nav-title></ion-nav-title><!--才会出现右边侧滑按钮-->
+<ion-view ng-controller="SelectFarmerCtrl">
+    <ion-content style="top:50px">
+        <div class="list">
+            <!--乡-->
+            <div class="item item-input item-select">
+                <div class="input-label">
+                    乡
+                </div>
+                <select style="font-size: 16px" ng-model="Sel.Town"
+                        ng-options="t.name for t in Data.Town" ng-change="ChangeTown()">
+                    <option value="">--请选择--</option>
+                </select>
+            </div>
+            <!--村-->
+            <div class="item item-input item-select">
+                <div class="input-label">
+                    村
+                </div>
+                <select style="font-size: 16px" ng-model="Sel.Village"
+                        ng-options="t.name for t in Data.Village" ng-change="ChangeVillage()">
+                    <option value="">--请选择--</option>
+                </select>
+            </div>
+            <!--农户-->
+            <div class="item item-input item-select">
+                <div class="input-label">
+                    农户
+                </div>
+                <select style="font-size: 16px" ng-model="Sel.Farmer"
+                        ng-options="t.farmername for t in Data.Farmer">
+                    <option value="">--请选择--</option>
+                </select>
+            </div>
+            <div>
+                <button class="button button-block button-positive" ng-click="Ok()" >确定</button>
+                <!--<button class="button button-block button-positive" ng-click="Cancel()">取消</button>-->
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

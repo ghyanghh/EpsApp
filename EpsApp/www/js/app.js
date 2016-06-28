@@ -6,59 +6,19 @@
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
-
-//系统配置信息
+//系统信息
 .constant("EPSConfig", {
     "version": "1.0.1",//app version
     "name": "EPS For App",
-    "api": "http://127.0.0.1:60001/Inspect"
+    "api": "http://127.0.0.1:60001/Inspect",
+    "protocolVersion": "0.5"//协议版本
 })
+.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+    $ionicConfigProvider.platform.android.tabs.style('standard');
+    $ionicConfigProvider.platform.android.tabs.position('top');//android默认tab会在上面，这样可以统一使tab在最下面。
+    $ionicConfigProvider.navBar.alignTitle('center');//设置nav title剧中
+    $ionicConfigProvider.platform.android.backButton.previousTitleText('').icon('ion-android-arrow-back');
 
-.run(function ($ionicPlatform, $rootScope, $ionicPopup, $state, $ionicModal) {
-    $ionicPlatform.ready(function () {
-        // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-        // for form inputs)
-        if (cordova.platformId === 'ios' && window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
-            cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-            cordova.plugins.Keyboard.disableScroll(true);
-        }
-        if (window.StatusBar) {
-            // org.apache.cordova.statusbar required
-            StatusBar.styleDefault(); 
-        };
-
-        //监听路由事件 
-        $rootScope.$on('$stateChangeStart',
-        function (event, toState, toParams, fromState, fromParams) {
-            if (!angular.fromJson(localStorage.getItem(localStorageKey.User)).IsLogin) {
-                $ionicPopup.alert({
-                    title: "提示",
-                    template: "请先登陆！",
-                    okText: "知道了"
-                }).then(function () {
-                    //创建模式层
-                    $ionicModal.fromTemplateUrl('login.html', {
-                        scope: $scope,
-                        animation: 'slide-in-down',
-                        hardwareBackButtonClose: false
-                    }).then(function (modal) {
-                        $scope.loginModal = modal;
-                        $scope.loginModal.show().then(function () {
-                        });
-                    });
-
-                    //阻止原来页面加载
-                    event.defaultPrevented();
-                })
-            }
-            //$location.path();//获取路由地址
-            //$location.path('/login');//设置路由地址
-        });
-    });
-})
-
-
-.config(function ($stateProvider, $urlRouterProvider, EPSConfig) {
 
     // Ionic uses AngularUI Router which uses the concept of states
     // Learn more here: https://github.com/angular-ui/ui-router
@@ -74,22 +34,21 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       })
 
     // Each tab has its own nav history stack:
-    .state('tab.checkPlan', {
-        url: '/checkPlan',
+    .state('tab.farmerInfo', {
+        url: '/farmerInfo',
         views: {
-            'tab-checkPlan': {
-                templateUrl: 'templates/tab-checkPlan.html',
-                controller: 'CheckPlanCtrl'
+            'tab-farmerInfo': {
+                templateUrl: 'templates/tab-farmerInfo.html',
+                controller: 'FarmerInfoCtrl'
             }
         }
     })
-
-    .state('tab.chats', {
-        url: '/chats',
+    .state('tab.signIn', {
+        url: '/signIn',
         views: {
-            'tab-chats': {
-                templateUrl: 'templates/tab-chats.html',
-                controller: 'ChatsCtrl'
+            'tab-signIn': {
+                templateUrl: 'templates/tab-signIn.html',
+                controller: 'SignInCtrl'
             }
         }
     })
@@ -102,7 +61,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
               }
           }
       })
-
     .state('tab.account', {
         url: '/account',
         views: {
@@ -111,10 +69,91 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
                 controller: 'AccountCtrl'
             }
         }
-    });
+    })
+     //首页
+     .state('index', {
+         url: '/',
+         cache: false,
+         templateUrl: 'templates/farmers.html',
+         controller: 'SelectFarmerCtrl'
+     })
+    .state('farmers', {
+        url: '/farmers',
+        templateUrl: 'templates/farmers.html',
+        cache: false,
+        controller: 'SelectFarmerCtrl'
+    })
+    //---------------------------------巡查报告--------------------------------
+    .state('tab.checkRpt', {
+        url: '/checkRpt',
+        views: {
+            'tab-checkRpt': {
+                templateUrl: 'templates/tab-checkRpt.html',
+                controller: 'CheckRptMasterCtrl'
+            }
+        }
+    })
+   .state('tab.addCheckRpt', {
+       url: '/addCheckRpt',
+       views: {
+           'tab-checkRpt': {
+               templateUrl: 'templates/tab-addCheckRpt.html',
+               controller: 'AddCheckRptCtrl'
+           }
+       }
+   })
+   .state('tab.checkRptDetail', {
+       url: '/checkRptDetail/:jobId',
+            views: {
+                'tab-checkRpt': {
+                    templateUrl: 'templates/tab-checkRptDetail.html',
+                    controller: 'CheckRptDetailCtrl'
+                }
+            }
+   })
+  //---------------------------------/巡查报告--------------------------------
+  //---------------------------------设备维修--------------------------------
+     .state('tab.eqRepair', {
+         url: '/eqRepair',
+         views: {
+             'tab-eqRepair': {
+                 templateUrl: 'templates/tab-eqRepair.html',
+                 controller: 'EqRepairCtrl'
+             }
+         }
+     })
+         .state('tab.addEqRepair', {
+             url: '/addEqRepair',
+             views: {
+                 'tab-addEqRepair': {
+                     templateUrl: 'templates/tab-addEqRepair.html',
+                     controller: 'AddEqRepairCtrl'
+                 }
+             }
+         })
+   .state('tab.eqRepairDetail', {
+       url: '/eqRepairDetail/:id',
+       views: {
+           'tab-eqRepair': {
+               templateUrl: 'templates/tab-eqRepairDetail.html',
+               controller: 'EqRepairDetailCtrl'
+           }
+       }
+   })
+ //---------------------------------/设备维修--------------------------------
+     .state('tab.alarm', {
+         url: '/alarm',
+         views: {
+             'tab-alarm': {
+                 templateUrl: 'templates/tab-alarm.html',
+                 controller: 'AlarmCtrl'
+             }
+         }
+     })
+    ;
 
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/tab/checkPlan');
+    $urlRouterProvider.otherwise('/');
 
     //本地存储key
     localStorageKey = {
@@ -145,4 +184,61 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         request: {},
         ver: '1'//protocol version
     }
+})
+.run(function ($ionicPlatform, $rootScope, $ionicPopup, $state, $ionicModal) {
+    $ionicPlatform.ready(function () {
+        // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+        // for form inputs)
+        if (cordova.platformId === 'ios' && window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
+            cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+            cordova.plugins.Keyboard.disableScroll(true);
+        }
+        if (window.StatusBar) {
+            // org.apache.cordova.statusbar required
+            StatusBar.styleDefault();
+        };
+
+        if (window.cordova && window.cordova.plugins.Keyboard) {
+            // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+            // for form inputs)
+            cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+
+            // Don't remove this line unless you know what you are doing. It stops the viewport
+            // from snapping when text inputs are focused. Ionic handles this internally for
+            // a much nicer keyboard experience.
+            cordova.plugins.Keyboard.disableScroll(true);
+        }
+
+        //监听路由事件 
+        $rootScope.$on('$stateChangeStart',
+        function (event, toState, toParams, fromState, fromParams) {
+            if (!angular.fromJson(localStorage.getItem(localStorageKey.User)).IsLogin) {
+                $ionicPopup.alert({
+                    title: "提示",
+                    template: "请先登陆！",
+                    okText: "知道了"
+                }).then(function () {
+                    //创建模式层
+                    $ionicModal.fromTemplateUrl('login.html', {
+                        scope: $scope,
+                        animation: 'slide-in-down',
+                        hardwareBackButtonClose: false
+                    }).then(function (modal) {
+                        $scope.loginModal = modal;
+                        $scope.loginModal.show().then(function () {
+                        });
+                    });
+
+                    //阻止原来页面加载
+                    event.defaultPrevented();
+                })
+            }
+            //$location.path();//获取路由地址
+            //$location.path('/login');//设置路由地址
+        });
+    });
 });
+
+
+
+

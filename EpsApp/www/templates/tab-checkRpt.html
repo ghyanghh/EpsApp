@@ -1,0 +1,26 @@
+﻿<ion-view view-title="报告单">
+    <ion-content>
+            <button class="button button-block button-positive">新增</button>
+            <ion-list can-swipe="true">
+                <ion-item ng-repeat="rpt in Data.rpts"
+                          item="item"
+                          href="#/tab/checkRptDetail/{{rpt.JobId}}" class="item-remove-animate" on-hold="showActionSheet({{ rpt.JobId }})">
+                    <div class="item item-divider">
+                        <i class="ion-ios-clock">
+                        </i>{{ rpt.InspectDate }}
+                    </div>
+                    <a class="item" href="">
+                        <i class="ion-ios-flag">
+                        </i>
+                        {{ rpt.JobStatus}}<!--颜色-->
+                    </a>
+                    <a class="item" href="#">
+                        <i class="ion-man">
+                        </i>{{ rpt.Inspector }}
+                    </a>
+                  
+                </ion-item>
+            </ion-list>
+</ion-content>
+</ion-view>
+
