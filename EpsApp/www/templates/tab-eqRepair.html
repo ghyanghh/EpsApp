@@ -1,6 +1,6 @@
-﻿<ion-view view-title="报告单">
-    <ion-content>
-            <button class="button button-block button-positive">新增</button>
+﻿<ion-view view-title="设备维修">
+    <ion-content style="overflow-y:hidden">
+            <a class="button button-block button-positive" href="#/tab/addEqRepair">新增</a>
             <ion-list can-swipe="true">
                 <ion-item ng-repeat="item in Data.EqRepair"
                           item="item"
@@ -9,15 +9,15 @@
                         <i class="ion-ios-clock">
                         </i>{{ item.Date }}
                     </div>
-                    <a class="item" href="">
+                    <div class="item">
                         <i class="ion-ios-flag">
                         </i>
                         {{ item.Status}}<!--颜色-->
-                    </a>
-                    <a class="item" href="#">
+                    </div>
+                    <div class="item">
                         <i class="ion-man">
                         </i>{{ item.Inspector }}
-                    </a>
+                    </div>
                 </ion-item>
             </ion-list>
 </ion-content>

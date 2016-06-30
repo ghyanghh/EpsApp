@@ -1,20 +1,16 @@
 ﻿<ion-view view-title="签到" ng-controller="SignInCtrl">
-  <ion-content style="overflow-y:hidden">
-      <button class="button button-block button-positive" ng-click="">签到</button>
-      <ion-list can-swipe="true">
-          <ion-item ng-repeat="item in Data.SignData"
-                    item="item"
-                    class="item-remove-animate">
-              <div class="item item-divider">
-                  <i class="ion-ios-clock">
-                  </i>{{ item.SignDate }}
-              </div>
-              <a class="item" href="">
-                  <i class="ion-man">
-                  </i>
-                  {{ item.Inspector}}<!--颜色-->
-              </a>
-          </ion-item>
-      </ion-list>
-  </ion-content>
+    <ion-content style="overflow-y:hidden">
+        <button class="button button-block button-positive" ng-click="Signin()">签到</button>
+        <ion-list can-swipe="true">
+            <ion-item ng-repeat="item in Data.SignData"
+                      item="item"
+                      class="item-remove-animate">
+                <div class="item item-text-wrap">
+                    <i class="ion-man">
+                    </i>
+                    {{ item.Inspector}}{{ item.SignDate }}
+                </div>
+            </ion-item>
+        </ion-list>
+    </ion-content>
 </ion-view>

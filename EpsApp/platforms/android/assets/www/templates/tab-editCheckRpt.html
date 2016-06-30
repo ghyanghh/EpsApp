@@ -1,0 +1,35 @@
+﻿<ion-view view-title="修改">
+    <ion-content>
+        <div class="list">
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">时间</span>
+                <input type="datetime-local" placeholder={{Datetime}} ng-model="Data.InspectDatetime" />
+            </label>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">状态</span>
+                <select style="font-size: 16px" ng-model="Sel.Status"
+                        ng-options="t.text for t in StatusData">
+                    <option value="">--请选择--</option>
+                </select>
+            </label>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">结果</span>
+                <textarea type="text" placeholder="空"></textarea>
+            </label>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">备注</span>
+                <textarea type="text" placeholder="空"></textarea>
+            </label>
+            <div class="item item-input item-stacked-label">
+                <img alt="图片1" src="" style="width:100px;height:100px" id="myImage1" ng-click="GetPic(1)" on-hold="DelPic(1)" />
+                <img alt="图片2" src="" style="width:100px;height:100px" id="myImage2" ng-click="GetPic(2)" on-hold="DelPic(2)"/>
+                <img alt="图片3" src="" style="width:100px;height:100px" id="myImage3" ng-click="GetPic(3)" on-hold="DelPic(3)"/>
+            </div>
+        </div>
+        <div class="padding">
+            <button class="button button-block button-positive" ng-click="Save()">修改</button>
+        </div>
+    </ion-content>
+</ion-view>
+
+

@@ -102,6 +102,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
            }
        }
    })
+     .state('tab.editCheckRpt', {
+       url: '/editCheckRpt',
+       views: {
+           'tab-checkRpt': {
+               templateUrl: 'templates/tab-editCheckRpt.html',
+               controller: 'EditCheckRptCtrl'
+           }
+       }
+   })
    .state('tab.checkRptDetail', {
        url: '/checkRptDetail/:jobId',
             views: {
@@ -125,7 +134,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
          .state('tab.addEqRepair', {
              url: '/addEqRepair',
              views: {
-                 'tab-addEqRepair': {
+                 'tab-eqRepair': {
                      templateUrl: 'templates/tab-addEqRepair.html',
                      controller: 'AddEqRepairCtrl'
                  }
@@ -236,6 +245,9 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
             //$location.path();//获取路由地址
             //$location.path('/login');//设置路由地址
         });
+
+        //隐藏启动画面
+        navigator.splashscreen.hide();
     });
 });
 

@@ -1,4 +1,4 @@
-﻿angular.module('starter.controllers', ['ionic', 'ionic-datepicker'])
+﻿angular.module('starter.controllers', ['ionic', 'ionic-datepicker','ngCordova'])
 .controller('IndexController', function ($scope, $state, AccountSvr, $ionicModal, $ionicPopup, EPSConfig) {
     //check
     var localUserInfo = angular.fromJson(localStorage.getItem(localStorageKey.User));
@@ -147,7 +147,7 @@
     };
     // /datePicker
 })
-.controller('SignInCtrl', function ($scope) {
+.controller('SignInCtrl', function ($scope, $ionicPopup) {
     // With the new view caching in Ionic, Controllers are only called
     // when they are recreated or on app start, instead of every page change.
     // To listen for when this page is active (for example, to refresh data),
@@ -176,7 +176,12 @@
         Inspector: '王五'
     });
     //method
-
+    $scope.Signin = function () {
+        $ionicPopup.alert({
+            title: 'info!',
+            template: '连接蓝牙设备签到！'
+        });
+    }
 })
 .controller('ChatDetailCtrl', function ($scope, $stateParams, Chats) {
     $scope.chat = Chats.get($stateParams.chatId);
@@ -329,8 +334,6 @@
         $scope.SetFarmers($scope.Sel.Village.addresscode, 1, 1000);
     }
     $scope.Ok = function () {
-        debugger;
-
         if ($scope.Sel.Farmer == null) {
             $ionicPopup.alert({
                 title: '警告!',
@@ -367,8 +370,9 @@
     //method
 
 })
+//--------------------------------------报告单-------------------------------------
 //报告单-主信息
-.controller('CheckRptMasterCtrl', function ($scope, $rootScope, $ionicActionSheet, $ionicPopup) {
+.controller('CheckRptMasterCtrl', function ($scope, $rootScope, $ionicActionSheet, $ionicPopup, $state) {
     //$rootScope.farmerId;
 
     //弹出菜单
@@ -386,7 +390,7 @@
             },
             buttonClicked: function (index) {
                 if (index == 0) {//编辑
-
+                    window.location.href = "#/tab/editCheckRpt"
                 }
                 else if (index == 1) {//删除
                     $ionicPopup.confirm({
@@ -446,53 +450,175 @@
 
 })
 //报告单-新增
-.controller('AddCheckRptCtrl', function ($scope, $rootScope, $ionicPopup) {
+.controller('AddCheckRptCtrl', function ($scope, $rootScope, $ionicPopup,$cordovaCamera) {
     //define
-    $scope.InspectResultData = {
+    $scope.Data = {
+        InspectDatetime: '',
+        JobStatus: '',
         InspectResult: '',
         Remark: '',
         Pic1: '',
         Pic2: '',
         Pic3: ''
+    };
+    $scope.StatusData = [
+        { text: "未处理", value: "1" },
+        { text: "处理中", value: "2" },
+        { text: "已处理", value: "3" }
+    ];
+    $scope.Sel = {
+        Status: null
     }
-    $scope.InspectResultData = {
+    $scope.SelStatus = null;//选中状态
+    $scope.Datetime = null;
+    var options = {
+        quality: 80,//画质0-100
+        destinationType: Camera.DestinationType.DATA_URL,//base64数据
+        sourceType: Camera.PictureSourceType.CAMERA,
+        allowEdit: false,
+        encodingType: Camera.EncodingType.JPEG,
+        targetWidth: 800,
+        targetHeight: 600,
+        popoverOptions: CameraPopoverOptions,
+        saveToPhotoAlbum: false,
+        correctOrientation: true
+    };
+
+    //event
+    $scope.GetPic = function (index) {
+        $cordovaCamera.getPicture(options).then(function (imageData) {
+
+            var image = document.getElementById('myImage' + index);
+            image.src = "data:image/jpeg;base64," + imageData;
+
+            if (index == 1)
+                $scope.Data.Pic1 = imageData;
+            else if (index == 2)
+                $scope.Data.Pic2 = imageData;
+            else if (index == 3)
+                $scope.Data.Pic3 = imageData;
+        }, function (err) {
+            // error
+        });
+    }
+    $scope.Save = function () {
+        //check
+        if ($scope.Data.InspectDatetime == '') {
+            $ionicPopup.alert({
+                title: '警告',
+                template: '请选择时间！'
+            });
+            return
+        }
+        console.log($scope.Sel.Status);
+        if ($scope.Sel.Status == null) {
+            $ionicPopup.alert({
+                title: '警告',
+                template: '请选择状态！'
+            });
+            return
+        }
+        
+
+        //???提交服务器
+    }
+    $scope.DelPic=function(index){
+        $ionicPopup.confirm({
+            title: '提示',
+            template: '确认删除?'
+        }).then(function (res) {
+            if (res) {
+                var image = document.getElementById('myImage' + index);
+                image.src = "";
+            }
+        });
+    }
+})
+//报告单-编辑
+.controller('EditCheckRptCtrl', function ($scope, $rootScope, $ionicPopup,$cordovaCamera) {
+    //define
+    $scope.Data = {
+        InspectDatetime: '',
+        JobStatus: '',
         InspectResult: '',
         Remark: '',
         Pic1: '',
         Pic2: '',
         Pic3: ''
+    };
+    $scope.StatusData = [
+        { text: "未处理", value: "1" },
+        { text: "处理中", value: "2" },
+        { text: "已处理", value: "3" }
+    ];
+    $scope.Sel = {
+        Status: null
+    }
+    $scope.SelStatus = null;//选中状态
+    $scope.Datetime = null;
+    var options = {
+        quality: 80,//画质0-100
+        destinationType: Camera.DestinationType.DATA_URL,//base64数据
+        sourceType: Camera.PictureSourceType.CAMERA,
+        allowEdit: false,
+        encodingType: Camera.EncodingType.JPEG,
+        targetWidth: 800,
+        targetHeight: 600,
+        popoverOptions: CameraPopoverOptions,
+        saveToPhotoAlbum: false,
+        correctOrientation: true
+    };
+
+    //event
+    $scope.GetPic = function (index) {
+        $cordovaCamera.getPicture(options).then(function (imageData) {
+
+            var image = document.getElementById('myImage' + index);
+            image.src = "data:image/jpeg;base64," + imageData;
+
+            if (index == 1)
+                $scope.Data.Pic1 = imageData;
+            else if (index == 2)
+                $scope.Data.Pic2 = imageData;
+            else if (index == 3)
+                $scope.Data.Pic3 = imageData;
+        }, function (err) {
+            // error
+        });
+    }
+    $scope.Save = function () {
+        //check
+        if ($scope.Data.InspectDatetime == '') {
+            $ionicPopup.alert({
+                title: '警告',
+                template: '请选择时间！'
+            });
+            return
+        }
+        console.log($scope.Sel.Status);
+        if ($scope.Sel.Status == null) {
+            $ionicPopup.alert({
+                title: '警告',
+                template: '请选择状态！'
+            });
+            return
+        }
+        
+
+        //???提交服务器
+    }
+    $scope.DelPic=function(index){
+        $ionicPopup.confirm({
+            title: '提示',
+            template: '确认删除?'
+        }).then(function (res) {
+            if (res) {
+                var image = document.getElementById('myImage' + index);
+                image.src = "";
+            }
+        });
     }
 
-    //???后台获取报告单信息、设备信息
-
-    //???test code
-    $scope.Data.InspectRes.push({
-        InspectResult: '正常',
-        Remark: '',
-        Pic1: 'http://www.runoob.com/try/demo_source/venkman.jpg',
-        Pic2: 'http://www.runoob.com/try/demo_source/siamese-dream.jpg',
-        Pic3: 'http://www.runoob.com/try/demo_source/venkman.jpg',
-    });
-    $scope.Data.Maintance.push({
-        DevicePartType: '水泵',
-        BeginStatus: '损坏',
-        FinalStatus: '正常',
-        RepairStatus: '修好',
-        Reason: '不明',
-        Pic1: 'http://www.runoob.com/try/demo_source/venkman.jpg',
-        Pic2: 'http://www.runoob.com/try/demo_source/siamese-dream.jpg',
-        Pic3: 'http://www.runoob.com/try/demo_source/venkman.jpg',
-    });
-    $scope.Data.Maintance.push({
-        DevicePartType: '气泵',
-        BeginStatus: '损坏',
-        FinalStatus: '正常',
-        RepairStatus: '修好',
-        Reason: '使用不当',
-        Pic1: 'http://www.runoob.com/try/demo_source/venkman.jpg',
-        Pic2: 'http://www.runoob.com/try/demo_source/siamese-dream.jpg',
-        Pic3: 'http://www.runoob.com/try/demo_source/venkman.jpg',
-    });
 })
 //报告单-详细信息
 .controller('CheckRptDetailCtrl', function ($scope, $rootScope, $stateParams) {
@@ -514,8 +640,10 @@
         Pic2: 'http://www.runoob.com/try/demo_source/siamese-dream.jpg',
         Pic3: 'http://www.runoob.com/try/demo_source/venkman.jpg',
     });
-   
+
 })
+//--------------------------------------/报告单-------------------------------------
+//--------------------------------------设备-------------------------------------
 //设备维修单-主信息
 .controller('EqRepairCtrl', function ($scope, $rootScope, $ionicActionSheet, $ionicPopup) {
 
@@ -587,53 +715,115 @@
 
 })
 //设备维修单-新增
-.controller('AddEqRepairCtrl', function ($scope, $rootScope, $ionicPopup) {
+.controller('AddEqRepairCtrl', function ($scope, $rootScope, $ionicPopup,$cordovaCamera) {
     //define
-    $scope.InspectResultData = {
-        InspectResult: '',
-        Remark: '',
+    $scope.MasterData = {
+        Datetime: '',
+        JobStatus: ''
+    }
+    //气泵
+    $scope.QBData1 = [
+      { text: "开始-是否正常", checked: false },
+      { text: "最后-是否正常", checked: false }
+    ];
+    //气泵
+    $scope.QBData2 = {
+        RepairMethod: '',
+        Reason: '',
         Pic1: '',
         Pic2: '',
-        Pic3: ''
-    }
-    $scope.InspectResultData = {
-        InspectResult: '',
-        Remark: '',
+        Pic3: '',
+    };
+    //液泵
+    $scope.YBData1 = [
+     { text: "开始-是否正常", checked: false },
+     { text: "最后-是否正常", checked: false }
+    ];
+    //液泵
+    $scope.YBData2 = {
+        RepairMethod: '',
+        Reason: '',
         Pic1: '',
         Pic2: '',
-        Pic3: ''
+        Pic3: '',
+    };
+    $scope.JobStatusData = [
+        { text: "未处理", value: "1" },
+        { text: "处理中", value: "2" },
+        { text: "已处理", value: "3" }
+    ];
+    $scope.RepairStatusData = [
+       { text: "现场处理", value: "1" },
+       { text: "时候处理", value: "2" }
+    ];
+    $scope.Sel = {
+        JobStatus:null,
+        QBRepairMethod: null,
+        YBRepairMethod: null
     }
+    $scope.Datetime = null;
+    var options = {
+        quality: 80,//画质0-100
+        destinationType: Camera.DestinationType.DATA_URL,//base64数据
+        sourceType: Camera.PictureSourceType.CAMERA,
+        allowEdit: false,
+        encodingType: Camera.EncodingType.JPEG,
+        targetWidth: 800,
+        targetHeight: 600,
+        popoverOptions: CameraPopoverOptions,
+        saveToPhotoAlbum: false,
+        correctOrientation: true
+    };
 
-    //???后台获取报告单信息、设备信息
+    //event
+    //$scope.GetPic = function (type) {
+    //    $cordovaCamera.getPicture(options).then(function (imageData) {
 
-    //???test code
-    $scope.Data.InspectRes.push({
-        InspectResult: '正常',
-        Remark: '',
-        Pic1: 'http://www.runoob.com/try/demo_source/venkman.jpg',
-        Pic2: 'http://www.runoob.com/try/demo_source/siamese-dream.jpg',
-        Pic3: 'http://www.runoob.com/try/demo_source/venkman.jpg',
-    });
-    $scope.Data.Maintance.push({
-        DevicePartType: '水泵',
-        BeginStatus: '损坏',
-        FinalStatus: '正常',
-        RepairStatus: '修好',
-        Reason: '不明',
-        Pic1: 'http://www.runoob.com/try/demo_source/venkman.jpg',
-        Pic2: 'http://www.runoob.com/try/demo_source/siamese-dream.jpg',
-        Pic3: 'http://www.runoob.com/try/demo_source/venkman.jpg',
-    });
-    $scope.Data.Maintance.push({
-        DevicePartType: '气泵',
-        BeginStatus: '损坏',
-        FinalStatus: '正常',
-        RepairStatus: '修好',
-        Reason: '使用不当',
-        Pic1: 'http://www.runoob.com/try/demo_source/venkman.jpg',
-        Pic2: 'http://www.runoob.com/try/demo_source/siamese-dream.jpg',
-        Pic3: 'http://www.runoob.com/try/demo_source/venkman.jpg',
-    });
+    //        var image = document.getElementById('myImage' + index);
+    //        image.src = "data:image/jpeg;base64," + imageData;
+
+    //        if (index == 1)
+    //            $scope.Data.Pic1 = imageData;
+    //        else if (index == 2)
+    //            $scope.Data.Pic2 = imageData;
+    //        else if (index == 3)
+    //            $scope.Data.Pic3 = imageData;
+    //    }, function (err) {
+    //        // error
+    //    });
+    //}
+    //$scope.Save = function () {
+    //    //check
+    //    if ($scope.Data.InspectDatetime == '') {
+    //        $ionicPopup.alert({
+    //            title: '警告',
+    //            template: '请选择时间！'
+    //        });
+    //        return
+    //    }
+    //    console.log($scope.Sel.Status);
+    //    if ($scope.Sel.Status == null) {
+    //        $ionicPopup.alert({
+    //            title: '警告',
+    //            template: '请选择状态！'
+    //        });
+    //        return
+    //    }
+
+
+    //    //???提交服务器
+    //}
+    //$scope.DelPic = function (index) {
+    //    $ionicPopup.confirm({
+    //        title: '提示',
+    //        template: '确认删除?'
+    //    }).then(function (res) {
+    //        if (res) {
+    //            var image = document.getElementById('myImage' + index);
+    //            image.src = "";
+    //        }
+    //    });
+    //}
 })
 //设备维修单-详细信息
 .controller('EqRepairDetailCtrl', function ($scope, $rootScope, $stateParams) {
@@ -668,6 +858,7 @@
         Pic3: 'http://www.runoob.com/try/demo_source/venkman.jpg',
     });
 })
+//--------------------------------------/设备-------------------------------------
 .controller('AlarmCtrl', function ($scope, $rootScope, $ionicActionSheet) {
 
     //define

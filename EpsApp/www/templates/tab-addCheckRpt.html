@@ -1,29 +1,35 @@
-﻿<ion-view view-title="新增报告单">
-    <ion-header-bar>
-        提交报告单
-    </ion-header-bar>
+﻿<ion-view view-title="新增">
     <ion-content>
-        <div class="item item-divider">
-            巡查结果
-        </div>
         <div class="list">
-            <label class="item item-input">
-                <textarea placeholder="巡查结果"></textarea>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">时间</span>
+                <input type="datetime-local"  ng-model="Data.InspectDatetime" />
             </label>
-            <label class="item item-input">
-                <textarea placeholder="备注"></textarea>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">状态</span>
+                <select style="font-size: 16px" ng-model="Sel.Status"
+                        ng-options="t.text for t in StatusData">
+                    <option value="">--请选择--</option>
+                </select>
             </label>
-        </div>
-
-        <div class="item item-divider">
-            设备状态
-        </div>
-        <div class="list">
-
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">结果</span>
+                <textarea type="text" placeholder="空"></textarea>
+            </label>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">备注</span>
+                <textarea type="text" placeholder="空"></textarea>
+            </label>
+            <div class="item item-input item-stacked-label">
+                <img alt="图片1" src="" style="width:100px;height:100px" id="myImage1" ng-click="GetPic(1)" on-hold="DelPic(1)" />
+                <img alt="图片2" src="" style="width:100px;height:100px" id="myImage2" ng-click="GetPic(2)" on-hold="DelPic(2)"/>
+                <img alt="图片3" src="" style="width:100px;height:100px" id="myImage3" ng-click="GetPic(3)" on-hold="DelPic(3)"/>
+            </div>
         </div>
         <div class="padding">
-            <button class="button button-block button-positive">Submit</button>
+            <button class="button button-block button-positive" ng-click="Save()">提交</button>
         </div>
     </ion-content>
 </ion-view>
+
 
